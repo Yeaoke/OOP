@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="Laba3OOP:javaEEApplication exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Laba3OOP_javaEEApplication_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Laba3OOP/javaeeApplication/javaEEApplication" />
+    </root>
+  </artifact>
+</component>

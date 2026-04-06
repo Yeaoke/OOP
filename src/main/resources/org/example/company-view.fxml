@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.CompanyController"
+            prefWidth="1200" prefHeight="700">
+
+    <top>
+        <VBox spacing="10" style="-fx-background-color: linear-gradient(to right, #667eea 0%, #764ba2 100%); -fx-padding: 15;">
+            <Label text="🏭 Промышленные компании"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label fx:id="statusLabel" text="Готов к работе" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <TableView fx:id="companiesTable" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
+                <TableColumn fx:id="nameColumn" text="Название" prefWidth="200"/>
+                <TableColumn fx:id="typeColumn" text="Тип" prefWidth="100"/>
+                <TableColumn fx:id="turnoverColumn" text="Оборот" prefWidth="120"/>
+                <TableColumn fx:id="holdingColumn" text="Холдинг" prefWidth="150"/>
+                <TableColumn fx:id="detailsColumn" text="Детали" prefWidth="350"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </center>
+
+    <left>
+        <VBox spacing="8" style="-fx-padding: 12; -fx-background-color: #f8f9fa;" prefWidth="300">
+            <Label text="➕ Добавить компанию"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+            <Separator/>
+
+            <Label text="Название:" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="nameField" promptText="Введите название"/>
+
+            <Label text="Годовой оборот:" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="turnoverField" promptText="Например: 1000000"/>
+
+            <Label text="Тип компании:" style="-fx-font-weight: bold;"/>
+            <ComboBox fx:id="typeComboBox" prefWidth="270"/>
+
+            <Label text="⛏️ Угольная:" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+            <TextField fx:id="coalVolumeField" promptText="Объём угля (тонн)"/>
+            <TextField fx:id="minesField" promptText="Кол-во шахт"/>
+
+            <Label text="🛢️ Нефтяная:" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+            <TextField fx:id="oilVolumeField" promptText="Объём нефти (баррелей)"/>
+            <TextField fx:id="wellsField" promptText="Кол-во скважин"/>
+
+            <Separator/>
+
+            <Label text="🏢 Привязать к холдингу:" style="-fx-font-weight: bold;"/>
+            <HBox spacing="5">
+                <ComboBox fx:id="assignHoldingComboBox" prefWidth="200" promptText="Выберите холдинг" HBox.hgrow="ALWAYS"/>
+                <Button text="📎" onAction="#handleQuickAssign"
+                        style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-font-size: 12px;"/>
+            </HBox>
+
+            <Separator/>
+
+            <Button text="💾 Добавить" onAction="#handleAddCompany"
+                    style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10; -fx-background-radius: 5;" maxWidth="Infinity"/>
+            <Button text="🔄 Обновить" onAction="#handleRefresh"
+                    style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-size: 13px; -fx-padding: 8; -fx-background-radius: 5;" maxWidth="Infinity"/>
+            <Button text="🗑️ Удалить" onAction="#handleDelete"
+                    style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-size: 13px; -fx-padding: 8; -fx-background-radius: 5;" maxWidth="Infinity"/>
+            <Button text="💰 Рассчитать" onAction="#handleCalculate"
+                    style="-fx-background-color: #ffc107; -fx-text-fill: #333; -fx-font-size: 13px; -fx-padding: 8; -fx-background-radius: 5;" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <right>
+        <VBox spacing="10" style="-fx-padding: 12; -fx-background-color: #f8f9fa;" prefWidth="280">
+
+            <Label text="⚙️ Действия" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+            <Separator/>
+
+            <Label text="⛏️ Угольная:" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+            <TextField fx:id="addMinesField" promptText="Добавить шахт"/>
+            <Button text="➕ Шахты" onAction="#handleAddMines"
+                    style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 6;" maxWidth="Infinity"/>
+            <Button text="🛑 Остановить" onAction="#handleStopExpanding"
+                    style="-fx-background-color: #343a40; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 6;" maxWidth="Infinity"/>
+
+            <Separator/>
+
+            <Label text="🛢️ Нефтяная:" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+            <TextField fx:id="addWellsField" promptText="Добавить скважин"/>
+            <Button text="➕ Скважины" onAction="#handleAddWells"
+                    style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 6;" maxWidth="Infinity"/>
+            <Button text="🔍 Проверить" onAction="#handleCheckResources"
+                    style="-fx-background-color: #17a2b8; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 6;" maxWidth="Infinity"/>
+
+            <Separator/>
+
+            <Label text="🏢 Холдинги" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+            <Separator/>
+
+            <Label text="Создать холдинг:" style="-fx-font-weight: bold;"/>
+            <HBox spacing="5">
+                <TextField fx:id="newHoldingNameField" promptText="Название холдинга" HBox.hgrow="ALWAYS"/>
+                <Button text="➕" onAction="#handleCreateHolding"
+                        style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-size: 12px;"/>
+            </HBox>
+
+            <Label text="Найти холдинг:" style="-fx-font-weight: bold;"/>
+            <HBox spacing="5">
+                <TextField fx:id="searchHoldingField" promptText="Поиск по названию" HBox.hgrow="ALWAYS"/>
+                <Button text="🔍" onAction="#handleSearchHolding"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12px;"/>
+            </HBox>
+
+            <Label text="📋 Компании в холдинге:" style="-fx-font-weight: bold;"/>
+            <ListView fx:id="holdingCompaniesList" prefHeight="180" prefWidth="250"/>
+
+            <HBox spacing="5">
+                <Button text="🔓 Отвязать" onAction="#handleUnassignFromHolding"
+                        style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-size: 11px;" HBox.hgrow="ALWAYS"/>
+                <Button text="🗑️ Удалить холдинг" onAction="#handleDeleteHolding"
+                        style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-size: 11px;"/>
+            </HBox>
+
+            <Separator/>
+
+            <Label text="💡 Подсказка:" style="-fx-font-weight: bold;"/>
+            <Label text="• Выберите тип компании&#10;• Заполните поля&#10;• Нажмите «Добавить»&#10;&#10;🏢 Холдинги:&#10;• Создайте → Найдите → Привяжите"
+                   wrapText="true" style="-fx-font-size: 10px; -fx-text-fill: #666;"/>
+        </VBox>
+    </right>
+
+    <padding>
+        <Insets top="0" right="0" bottom="0" left="0"/>
+    </padding>
+</BorderPane>

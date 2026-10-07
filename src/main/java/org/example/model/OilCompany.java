@@ -3,7 +3,6 @@ package org.example.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import jakarta.persistence.*;
-import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

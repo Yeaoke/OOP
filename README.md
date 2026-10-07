@@ -31,18 +31,29 @@
 
 ## 📦 Структура проекта
 
+```text
 src/
-├── main/
-│ ├── java/org/example/
-│ │ ├── controllers/ # Контроллеры для обработки HTTP-запросов
-│ │ ├── dto/ # Data Transfer Objects для обмена данными с клиентом
-│ │ ├── model/ # Сущности базы данных (Entity classes)
-│ │ ├── repository/ # Репозитории для доступа к данным
-│ │ ├── services/ # Бизнес-логика приложения
-│ │ └── util/ # Вспомогательные утилиты
-│ └── resources/
-│ ├── static/ # Статические файлы (HTML, CSS, JS)
-│ │ ├── css/
-│ │ └── js/
-│ ├── application.properties # Конфигурация Spring Boot
-│ └── hibernate.cfg.xml # Конфигурация Hibernate
+└── main/
+    ├── java/
+    │   └── org/
+    │       └── example/
+    │           ├── controllers/      # Контроллеры
+    │           ├── dto/              # Объекты передачи данных
+    │           ├── model/            # Сущности базы данных
+    │           ├── repository/       # Репозитории
+    │           ├── services/         # Бизнес-логика
+    │           └── util/             # Вспомогательные классы
+    │
+    └── resources/
+        ├── static/
+        │   ├── css/
+        │   │   └── style.css
+        │   ├── js/
+        │   │   └── app.js
+        │   └── index.html
+        │
+        └── application.properties
+
+├── pom.xml
+└── README.md
+```
